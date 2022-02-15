@@ -1,7 +1,11 @@
 module.exports = {
   content: ['./src/**/*.{vue,js}'],
   theme: {
-    extend: {}
+    extend: {
+      colors: {
+        gainsboro: '#d7e2e8'
+      }
+    }
   },
   plugins: []
 }
