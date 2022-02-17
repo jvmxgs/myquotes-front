@@ -29,7 +29,6 @@
           </router-link>
           <custom-button
             text="Create account"
-            icon="fa-solid fa-house"
             @click="register"
             type="primary"
             :disabled="isLoading"
