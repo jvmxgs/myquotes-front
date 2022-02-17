@@ -6,7 +6,7 @@ npm install
 
 cd myquotes-front
 
-cd .env.local.examples .env.local
+cp .env.local.example .env.local
 
 [configure your .env.local as follows with your backend enpoint ]
 
