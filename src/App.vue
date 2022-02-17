@@ -1,10 +1,21 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
+    <notifications group="success">
+      <template slot="body" slot-scope="props">
+        <div class="text-sm font-montserrat font-medium rounded-lg bg-white text-big-stone shadow-lg mt-2 mr-2 py-2">
+            <a class="title">
+              {{props.item.title}}
+            </a>
+            <a class="close" @click="props.close">
+              <i class="fa fa-fw fa-close"></i>
+            </a>
+            <div v-html="props.item.text">
+            </div>
+        </div>
+      </template>
+    </notifications>
+    <vue-confirm-dialog></vue-confirm-dialog>
   </div>
 </template>
 

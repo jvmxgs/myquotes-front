@@ -1,13 +1,15 @@
 <template>
   <article>
     <quote-list
-      title="Daily Quotes"
+      title="My Quotes"
       :quotes="quotes"
+      v-if="quotes.length"
+      :userMode="true"
     ></quote-list>
-    <quote-list
-      title="Explore"
-      :quotes="otherQuotes"
-    ></quote-list>
+    <div class="mt-8 flex flex-col" v-if="! quotes.length">
+      <span class="text-periwinkle-gray text-lg font-bold font-montserrat">You dont have any quotes in your collection</span>
+      <router-link to="/" class="font-montserrat">Explore Quotes</router-link>
+    </div>
   </article>
 </template>
 
@@ -20,16 +22,12 @@ export default {
   data () {
     return {
       quotes: [],
-      otherQuotes: [],
       params: {
         page: 1
       }
     }
   },
   async beforeMount () {
-    await QuoteService.dailyQuotes().then((data) => {
-      this.quotes = data
-    })
     await this.getInitialQuotes()
   },
   async mounted () {
@@ -48,13 +46,12 @@ export default {
       }
     },
     async getQuotes () {
-      await QuoteService.quotes(this.params).then((data) => {
-        console.log(data.length, this.params.page)
+      await QuoteService.userQuotes(this.params).then((data) => {
         if (data.length === 0) {
           return
         }
 
-        this.otherQuotes.push(...data)
+        this.quotes.push(...data)
         this.params.page++
       })
     }
