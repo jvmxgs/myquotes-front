@@ -3,8 +3,7 @@ const baseURL = process.env.VUE_APP_ROOT_API + '/api'
 
 var headers = {
   'Content-Type': 'application/json',
-  Accept: 'application/json',
-  'X-Requested-With': 'XMLHttpRequest'
+  Accept: 'application/json'
 }
 
 const options = {
@@ -16,10 +15,9 @@ const Axios = axios.create(options)
 
 Axios.interceptors.request.use(
   function (config) {
-    const lsUser = localStorage.getItem('user')
-    const user = JSON.parse(lsUser)
-    if (user) {
-      config.headers.Authorization = 'Bearer ' + user.token
+    const token = localStorage.getItem('token')
+    if (token) {
+      config.headers.Authorization = 'Bearer ' + token.replace(/['"]+/g, '')
     }
     return config
   },

@@ -36,10 +36,10 @@ export default {
           icon: 'fa-regular fa-comment-dots',
           path: '/myquotes'
         },
-        user: {
-          text: 'Account',
-          icon: 'fa-regular fa-user',
-          path: '/account'
+        export: {
+          text: 'Export',
+          icon: 'fa-solid fa-file-export',
+          path: '/export'
         },
         login: {
           text: 'Logout',

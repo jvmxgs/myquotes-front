@@ -29,6 +29,7 @@
           </router-link>
           <custom-button
             text="Create account"
+            icon="fa-solid fa-house"
             @click="register"
             type="primary"
             :disabled="isLoading"
@@ -93,7 +94,12 @@ export default {
       this.isLoading = true
 
       await AuthService.register(this.credentials).then((response) => {
-        this.$store.dispatch('auth/saveToken', { token: response.token })
+        localStorage.setItem('user', JSON.stringify(response.data.user))
+        localStorage.setItem('token', JSON.stringify(response.data.token))
+        this.$store.dispatch('auth/saveUserData', {
+          token: response.data.token,
+          user: response.data.user
+        })
         this.$router.push({ name: 'Dashboard' })
       }).catch(error => {
         this.showErrorsMessage = true

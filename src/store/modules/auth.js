@@ -1,17 +1,22 @@
 const state = {
-  token: localStorage.getItem('token') || null,
-  user: localStorage.getItem('user') || null
+  token: JSON.parse(localStorage.getItem('token')),
+  user: JSON.parse(localStorage.getItem('user'))
 }
 
 const getters = {
   loggedIn (state) {
     return state.token !== null
+  },
+  user (state) {
+    return state.user
   }
 }
 
 const mutations = {
-  authSuccess (state, token) {
-    state.token = token
+  authSuccess (state, payload) {
+    console.log(payload, 'payload')
+    state.token = payload.token
+    state.user = payload.user
     state.loggedIn = true
   },
   destroyToken (state) {
@@ -23,8 +28,8 @@ const mutations = {
 }
 
 const actions = {
-  saveToken (context, token) {
-    context.commit('authSuccess', token)
+  saveUserData (context, payload) {
+    context.commit('authSuccess', payload)
   },
   destroyToken (context) {
     context.commit('destroyToken')

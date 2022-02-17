@@ -1,6 +1,7 @@
 import Dashboard from '../views/Dashboard'
 import Home from '../views/Home'
 import MyQuotes from '../views/MyQuotes'
+import Export from '../views/Export'
 
 export default [
   {
@@ -25,6 +26,16 @@ export default [
         name: 'MyQuotes',
         components: {
           content: MyQuotes
+        },
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: 'export',
+        name: 'Export',
+        components: {
+          content: Export
         },
         meta: {
           requiresAuth: true
