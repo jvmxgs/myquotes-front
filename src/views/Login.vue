@@ -64,14 +64,28 @@ export default {
       this.isLoading = true
 
       await AuthService.login(this.credentials).then((response) => {
-        this.$store.dispatch('auth/saveToken', { token: response.token })
+        this.$store.dispatch('auth/saveUserData', {
+          token: response.token,
+          user: response.user
+        })
         this.$router.push({ name: 'Dashboard' })
       }).catch((error) => {
+        if (error.response?.data?.message) {
+          this.$notify({
+            group: 'success',
+            text: error.response.data.message
+          })
+        }
+
         const responseErrors = error.response.data.errors
 
         Object.keys(this.inputs).forEach(input => {
           this.inputs[input].error = ''
         })
+
+        if (!responseErrors) {
+          return
+        }
 
         Object.keys(responseErrors).forEach(element => {
           this.inputs[element].error = responseErrors[element][0]

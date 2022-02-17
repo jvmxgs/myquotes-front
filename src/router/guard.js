@@ -14,7 +14,7 @@ router.beforeEach((to, from, next) => {
     return next('/login')
   }
 
-  if (to.name === 'Login' && authenticated) {
+  if (['Login', 'Register'].includes(to.name) && authenticated) {
     return next('/')
   }
 
